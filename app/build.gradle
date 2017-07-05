@@ -55,32 +55,27 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     androidTestImplementation("com.android.support.test.espresso:espresso-core:$rootProject.espressoVersion", {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     implementation "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
     testImplementation "junit:junit:$rootProject.junitVersion"
-
     //di
     compile "com.google.dagger:dagger:$rootProject.daggerVersion"
     annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
-
     //响应式编程
     compile "io.reactivex.rxjava2:rxjava:$rootProject.rxjavaVersion"
-    compile ("io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion")
-
+    compile "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
     //debug with chrome
     compile "com.facebook.stetho:stetho:$rootProject.stethoVersion"
-
     //leak check
     debugCompile "com.squareup.leakcanary:leakcanary-android:$rootProject.leakCanaryVersion"
     releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.leakCanaryVersion"
     testCompile "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.leakCanaryVersion"
-
     //log
     compile "com.orhanobut:logger:$rootProject.loggerVersion"
-
     //debug database
     debugCompile 'com.amitshekhar.android:debug-db:1.0.1'
+    implementation project(':baselib:library')
 }
