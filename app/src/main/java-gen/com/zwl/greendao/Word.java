@@ -12,7 +12,7 @@ public class Word {
 
     @Id(autoincrement = true)
     private Long id;
-    private String hour;
+    private String name;
     private String pronunciation;
     private String meaning;
     private Long saveTime;
@@ -26,9 +26,9 @@ public class Word {
     }
 
     @Generated
-    public Word(Long id, String hour, String pronunciation, String meaning, Long saveTime) {
+    public Word(Long id, String name, String pronunciation, String meaning, Long saveTime) {
         this.id = id;
-        this.hour = hour;
+        this.name = name;
         this.pronunciation = pronunciation;
         this.meaning = meaning;
         this.saveTime = saveTime;
@@ -42,12 +42,12 @@ public class Word {
         this.id = id;
     }
 
-    public String getHour() {
-        return hour;
+    public String getName() {
+        return name;
     }
 
-    public void setHour(String hour) {
-        this.hour = hour;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPronunciation() {

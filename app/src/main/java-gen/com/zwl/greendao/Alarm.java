@@ -12,9 +12,9 @@ public class Alarm {
 
     @Id
     private Long id;
-    private String hour;
-    private String minute;
-    private Long open;
+    private Integer hour;
+    private Integer minute;
+    private Boolean open;
 
     @Generated
     public Alarm() {
@@ -25,7 +25,7 @@ public class Alarm {
     }
 
     @Generated
-    public Alarm(Long id, String hour, String minute, Long open) {
+    public Alarm(Long id, Integer hour, Integer minute, Boolean open) {
         this.id = id;
         this.hour = hour;
         this.minute = minute;
@@ -40,27 +40,27 @@ public class Alarm {
         this.id = id;
     }
 
-    public String getHour() {
+    public Integer getHour() {
         return hour;
     }
 
-    public void setHour(String hour) {
+    public void setHour(Integer hour) {
         this.hour = hour;
     }
 
-    public String getMinute() {
+    public Integer getMinute() {
         return minute;
     }
 
-    public void setMinute(String minute) {
+    public void setMinute(Integer minute) {
         this.minute = minute;
     }
 
-    public Long getOpen() {
+    public Boolean getOpen() {
         return open;
     }
 
-    public void setOpen(Long open) {
+    public void setOpen(Boolean open) {
         this.open = open;
     }
 

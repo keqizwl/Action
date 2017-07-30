@@ -1,7 +1,6 @@
-package com.zwl.baseframe.domain.ui.sample;
+package com.zwl.baseframe.domain.ui.main;
 
 
-import com.zwl.baseframe.domain.business.implementz.WordBusinessImpl;
 import com.zwl.baseframe.domain.business.model.SampleModel;
 import com.zwl.baseframe.domain.business.module.impl.SampleBusinessImpl;
 import com.zwl.baseframe.domain.ui.implementz.di.scope.ActivityScope;
@@ -20,9 +19,6 @@ public class SamplePresenter implements SampleContract.ILoginPresenter {
 
     @Inject
     SampleBusinessImpl mAccountBusiness;
-
-    @Inject
-    WordBusinessImpl wordBusiness;
 
     @Inject
     public SamplePresenter() {

@@ -23,7 +23,7 @@ public class WordDao extends AbstractDao<Word, Long> {
      */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property Hour = new Property(1, String.class, "hour", false, "HOUR");
+        public final static Property Name = new Property(1, String.class, "name", false, "NAME");
         public final static Property Pronunciation = new Property(2, String.class, "pronunciation", false, "PRONUNCIATION");
         public final static Property Meaning = new Property(3, String.class, "meaning", false, "MEANING");
         public final static Property SaveTime = new Property(4, Long.class, "saveTime", false, "SAVE_TIME");
@@ -43,7 +43,7 @@ public class WordDao extends AbstractDao<Word, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"WORD\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
-                "\"HOUR\" TEXT," + // 1: hour
+                "\"NAME\" TEXT," + // 1: name
                 "\"PRONUNCIATION\" TEXT," + // 2: pronunciation
                 "\"MEANING\" TEXT," + // 3: meaning
                 "\"SAVE_TIME\" INTEGER);"); // 4: saveTime
@@ -64,9 +64,9 @@ public class WordDao extends AbstractDao<Word, Long> {
             stmt.bindLong(1, id);
         }
  
-        String hour = entity.getHour();
-        if (hour != null) {
-            stmt.bindString(2, hour);
+        String name = entity.getName();
+        if (name != null) {
+            stmt.bindString(2, name);
         }
  
         String pronunciation = entity.getPronunciation();
@@ -94,9 +94,9 @@ public class WordDao extends AbstractDao<Word, Long> {
             stmt.bindLong(1, id);
         }
  
-        String hour = entity.getHour();
-        if (hour != null) {
-            stmt.bindString(2, hour);
+        String name = entity.getName();
+        if (name != null) {
+            stmt.bindString(2, name);
         }
  
         String pronunciation = entity.getPronunciation();
@@ -124,7 +124,7 @@ public class WordDao extends AbstractDao<Word, Long> {
     public Word readEntity(Cursor cursor, int offset) {
         Word entity = new Word( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // hour
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // name
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // pronunciation
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // meaning
             cursor.isNull(offset + 4) ? null : cursor.getLong(offset + 4) // saveTime
@@ -135,7 +135,7 @@ public class WordDao extends AbstractDao<Word, Long> {
     @Override
     public void readEntity(Cursor cursor, Word entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setHour(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setName(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setPronunciation(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setMeaning(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setSaveTime(cursor.isNull(offset + 4) ? null : cursor.getLong(offset + 4));

@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    //compontent
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="toolbar_padding_top">25dp</dimen>
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_height">176dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+    //size
+    <dimen name="margin_large">16dp</dimen>
+    <dimen name="margin_middle">8dp</dimen>
+    <dimen name="margin_small">4dp</dimen>
+    <dimen name="margin_tiny">2dp</dimen>
 </resources>

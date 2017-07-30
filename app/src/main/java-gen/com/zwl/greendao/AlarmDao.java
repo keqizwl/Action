@@ -23,9 +23,9 @@ public class AlarmDao extends AbstractDao<Alarm, Long> {
      */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "ID");
-        public final static Property Hour = new Property(1, String.class, "hour", false, "HOUR");
-        public final static Property Minute = new Property(2, String.class, "minute", false, "MINUTE");
-        public final static Property Open = new Property(3, Long.class, "open", false, "OPEN");
+        public final static Property Hour = new Property(1, Integer.class, "hour", false, "HOUR");
+        public final static Property Minute = new Property(2, Integer.class, "minute", false, "MINUTE");
+        public final static Property Open = new Property(3, Boolean.class, "open", false, "OPEN");
     }
 
 
@@ -42,8 +42,8 @@ public class AlarmDao extends AbstractDao<Alarm, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"ALARM\" (" + //
                 "\"ID\" INTEGER PRIMARY KEY ," + // 0: id
-                "\"HOUR\" TEXT," + // 1: hour
-                "\"MINUTE\" TEXT," + // 2: minute
+                "\"HOUR\" INTEGER," + // 1: hour
+                "\"MINUTE\" INTEGER," + // 2: minute
                 "\"OPEN\" INTEGER);"); // 3: open
     }
 
@@ -62,19 +62,19 @@ public class AlarmDao extends AbstractDao<Alarm, Long> {
             stmt.bindLong(1, id);
         }
  
-        String hour = entity.getHour();
+        Integer hour = entity.getHour();
         if (hour != null) {
-            stmt.bindString(2, hour);
+            stmt.bindLong(2, hour);
         }
  
-        String minute = entity.getMinute();
+        Integer minute = entity.getMinute();
         if (minute != null) {
-            stmt.bindString(3, minute);
+            stmt.bindLong(3, minute);
         }
  
-        Long open = entity.getOpen();
+        Boolean open = entity.getOpen();
         if (open != null) {
-            stmt.bindLong(4, open);
+            stmt.bindLong(4, open ? 1L: 0L);
         }
     }
 
@@ -87,19 +87,19 @@ public class AlarmDao extends AbstractDao<Alarm, Long> {
             stmt.bindLong(1, id);
         }
  
-        String hour = entity.getHour();
+        Integer hour = entity.getHour();
         if (hour != null) {
-            stmt.bindString(2, hour);
+            stmt.bindLong(2, hour);
         }
  
-        String minute = entity.getMinute();
+        Integer minute = entity.getMinute();
         if (minute != null) {
-            stmt.bindString(3, minute);
+            stmt.bindLong(3, minute);
         }
  
-        Long open = entity.getOpen();
+        Boolean open = entity.getOpen();
         if (open != null) {
-            stmt.bindLong(4, open);
+            stmt.bindLong(4, open ? 1L: 0L);
         }
     }
 
@@ -112,9 +112,9 @@ public class AlarmDao extends AbstractDao<Alarm, Long> {
     public Alarm readEntity(Cursor cursor, int offset) {
         Alarm entity = new Alarm( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // hour
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // minute
-            cursor.isNull(offset + 3) ? null : cursor.getLong(offset + 3) // open
+            cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1), // hour
+            cursor.isNull(offset + 2) ? null : cursor.getInt(offset + 2), // minute
+            cursor.isNull(offset + 3) ? null : cursor.getShort(offset + 3) != 0 // open
         );
         return entity;
     }
@@ -122,9 +122,9 @@ public class AlarmDao extends AbstractDao<Alarm, Long> {
     @Override
     public void readEntity(Cursor cursor, Alarm entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setHour(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setMinute(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setOpen(cursor.isNull(offset + 3) ? null : cursor.getLong(offset + 3));
+        entity.setHour(cursor.isNull(offset + 1) ? null : cursor.getInt(offset + 1));
+        entity.setMinute(cursor.isNull(offset + 2) ? null : cursor.getInt(offset + 2));
+        entity.setOpen(cursor.isNull(offset + 3) ? null : cursor.getShort(offset + 3) != 0);
      }
     
     @Override

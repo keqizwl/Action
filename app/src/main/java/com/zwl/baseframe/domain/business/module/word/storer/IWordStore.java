@@ -10,7 +10,7 @@ import java.util.List;
  * Created by hasee on 2017/6/26.
  */
 
-public interface IWordStorer {
+public interface IWordStore {
     void getWordList(CommonCallback<List<WordModel>> commonCallback);
 
     void saveWord(WordModel wordModel);

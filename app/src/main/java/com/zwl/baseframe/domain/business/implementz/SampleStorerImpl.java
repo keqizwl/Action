@@ -1,7 +1,7 @@
 package com.zwl.baseframe.domain.business.implementz;
 
 import com.zwl.baseframe.domain.business.model.SampleModel;
-import com.zwl.baseframe.domain.business.module.intf.ISampleStore;
+import com.zwl.baseframe.domain.business.module.sample.ISampleStore;
 
 /**
  * Created by hasee on 2017/7/1.

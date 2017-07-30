@@ -36,7 +36,7 @@ public class SampleActivity extends BaseActivity implements SampleContract.ILogi
 
     @Override
     protected void injectActivity() {
-        BaseApplication.getInstance().getSampleActivityComponent(this).inject(this);
+        BaseApplication.getInstance().getActivityComponent(this).inject(this);
     }
 
     /**

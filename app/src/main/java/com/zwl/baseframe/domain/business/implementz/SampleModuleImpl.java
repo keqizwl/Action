@@ -3,7 +3,7 @@ package com.zwl.baseframe.domain.business.implementz;
 
 import com.zwl.baseframe.domain.business.model.SampleModel;
 import com.zwl.baseframe.domain.business.module.impl.SampleBean;
-import com.zwl.baseframe.domain.business.module.intf.ISampleModule;
+import com.zwl.baseframe.domain.business.module.sample.ISampleModule;
 
 import javax.inject.Inject;
 

@@ -9,11 +9,16 @@ import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
 import com.squareup.leakcanary.LeakCanary;
+import com.zwl.baseframe.domain.business.implementz.di.module.BusinessModule;
 import com.zwl.baseframe.domain.ui.implementz.di.component.ActivityCompontent;
 import com.zwl.baseframe.domain.ui.implementz.di.module.ActivityModule;
 import com.zwl.baseframe.implementz.di.component.AppComponent;
 import com.zwl.baseframe.implementz.di.component.DaggerAppComponent;
 import com.zwl.baseframe.implementz.di.module.AppModule;
+import com.zwl.greendao.DaoMaster;
+import com.zwl.greendao.DaoSession;
+
+import org.greenrobot.greendao.database.Database;
 
 
 /**
@@ -23,19 +28,22 @@ import com.zwl.baseframe.implementz.di.module.AppModule;
 public class BaseApplication extends Application {
     private static volatile BaseApplication sInstance;
     private AppComponent mAppComponent;
+    private DaoSession mDaoSession;
 
     @Override
     public void onCreate() {
         super.onCreate();
         sInstance = this;
 
-        if(!initLeakCanary()){
+        if (!initLeakCanary()) {
             return;
         }
 
         initLogger();
 
         initStetho();
+
+        createDaoSession();
 
         initAppComponent();
     }
@@ -50,8 +58,9 @@ public class BaseApplication extends Application {
                 .tag("Logger")   // (Optional) Global tag for every log. Default PRETTY_LOGGER
                 .build();
 
-        Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy){
-            @Override public boolean isLoggable(int priority, String tag) {
+        Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy) {
+            @Override
+            public boolean isLoggable(int priority, String tag) {
                 return BuildConfig.DEBUG;
             }
         });
@@ -67,22 +76,28 @@ public class BaseApplication extends Application {
             // This process is dedicated to LeakCanary for heap analysis.
             // You should not init your app in this process.
             return false;
-        }else {
+        } else {
             LeakCanary.install(this);
             return true;
         }
     }
 
+    private void createDaoSession() {
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "wordeasy-db");
+        Database db = helper.getWritableDb();
+        mDaoSession = new DaoMaster(db).newSession();
+    }
+
     private void initAppComponent() {
-        mAppComponent = DaggerAppComponent.builder().appModule(new AppModule(sInstance)).build();
+        mAppComponent = DaggerAppComponent.builder().appModule(new AppModule(sInstance)).businessModule(new BusinessModule(mDaoSession)).build();
     }
 
     public AppComponent component() {
         return mAppComponent;
     }
 
-    public ActivityCompontent getSampleActivityComponent(Activity activity){
-        return  mAppComponent.newActivityCompontent(new ActivityModule(activity));
+    public ActivityCompontent getActivityComponent(Activity activity) {
+        return mAppComponent.newActivityCompontent(new ActivityModule(activity));
     }
 
     public static BaseApplication getInstance() {

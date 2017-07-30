@@ -1,4 +1,4 @@
-package com.zwl.baseframe.domain.business.module.baidu;
+package com.zwl.baseframe.domain.business.implementz.baidu;
 
 import java.io.File;
 import java.io.FileInputStream;

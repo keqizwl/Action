@@ -7,22 +7,35 @@ import com.zwl.baseframe.domain.business.model.WordModel;
 import com.zwl.baseframe.domain.business.module.alarm.IAlarmModule;
 import com.zwl.baseframe.domain.business.module.alarm.IAlarmStorer;
 import com.zwl.baseframe.domain.business.module.word.IWordModule;
-import com.zwl.baseframe.domain.business.module.word.storer.IWordStorer;
+import com.zwl.baseframe.domain.business.module.word.storer.IWordStore;
 import com.zwl.baseframe.implementz.CommonCallback;
+import com.zwl.baseframe.implementz.di.scope.AppScope;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.inject.Inject;
+
 /**
  * Created by hasee on 2017/6/26.
  */
 
+@AppScope
 public class WordBusinessImpl implements IWordBusiness {
-    private IWordModule wordModule;
-    private IWordStorer wordStorer;
-    private IAlarmModule alarmModule;
-    private IAlarmStorer alarmStorer;
+    @Inject
+    IWordModule wordModule;
+    @Inject
+    IWordStore wordStorer;
+    @Inject
+    IAlarmModule alarmModule;
+    @Inject
+    IAlarmStorer alarmStorer;
+
+    @Inject
+    public WordBusinessImpl(){
+
+    }
 
     /*主页数据内存缓存*/
     private final List<WordModel> homeWordModels = Collections.synchronizedList(new ArrayList<WordModel>());
@@ -30,19 +43,6 @@ public class WordBusinessImpl implements IWordBusiness {
 
     /*设置缓存*/
     private final List<AlarmModel> setAlarmModels = Collections.synchronizedList(new ArrayList<AlarmModel>());
-
-    private static class Resource {
-        static final WordBusinessImpl wordBusiness = new WordBusinessImpl();
-    }
-
-    public static WordBusinessImpl getInstance() {
-        return Resource.wordBusiness;
-    }
-
-    private WordBusinessImpl() {
-
-    }
-
 
     @Override
     public void getRecentlyWordList(final CommonCallback<List<WordModel>> commonCallback) {

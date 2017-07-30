@@ -1,4 +1,4 @@
-package com.zwl.baseframe.domain.business.module.intf;
+package com.zwl.baseframe.domain.business.module.sample;
 
 import com.zwl.baseframe.domain.business.model.SampleModel;
 

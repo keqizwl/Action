@@ -19,7 +19,7 @@ public class WordDaoGentator {
     private static void addWordTable(Schema schema) {
         Entity note = schema.addEntity("Word");
         note.addIdProperty().primaryKey().autoincrement();
-        note.addStringProperty("hour");
+        note.addStringProperty("name");
         note.addStringProperty("pronunciation");
         note.addStringProperty("meaning");
         note.addLongProperty("saveTime");
@@ -28,9 +28,9 @@ public class WordDaoGentator {
     private static void addAlarm(Schema schema) {
         Entity note = schema.addEntity("Alarm");
         note.addLongProperty("id").primaryKey();
-        note.addStringProperty("hour");
-        note.addStringProperty("minute");
-        note.addLongProperty("open");
+        note.addIntProperty("hour");
+        note.addIntProperty("minute");
+        note.addBooleanProperty("open");
     }
 
 }

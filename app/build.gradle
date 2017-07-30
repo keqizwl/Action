@@ -81,4 +81,6 @@ dependencies {
 
     //greendao
     implementation "org.greenrobot:greendao:$rootProject.greendaoVersion"
+    implementation 'com.android.support:design:24.2.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 }

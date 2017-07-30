@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.zwl.baseframe.domain.ui.implementz.di.module.ActivityModule;
 import com.zwl.baseframe.domain.ui.implementz.di.scope.ActivityScope;
+import com.zwl.baseframe.domain.ui.main.MainActivity;
 import com.zwl.baseframe.domain.ui.sample.SampleActivity;
 
 import dagger.Subcomponent;
@@ -16,6 +17,8 @@ import dagger.Subcomponent;
 @Subcomponent(modules = {ActivityModule.class})
 public interface ActivityCompontent {
     void inject(SampleActivity sampleActivity);
+
+    void inject(MainActivity mainActivity);
 
     Activity context();
 }
