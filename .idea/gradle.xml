@@ -10,6 +10,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/baselib/library" />
+            <option value="$PROJECT_DIR$/greendaoorm" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

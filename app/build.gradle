@@ -79,4 +79,6 @@ dependencies {
     //debug database
     implementation "com.amitshekhar.android:debug-db:$rootProject.debugDbVersion"
 
+    //greendao
+    implementation "org.greenrobot:greendao:$rootProject.greendaoVersion"
 }
