@@ -23,7 +23,7 @@ public final class DbConverter {
     }
 
     public static WordModel convertToWordModel(Word word) {
-        return new WordModel(word.getId(), word.getName(), word.getPronunciation(), word.getMeaning(), word.getSaveTime());
+        return new WordModel(word.getId(), word.getName(),word.getMeaning(), word.getSaveTime());
     }
 
     public static Alarm convertAlarmModel(AlarmModel alarmModel) {

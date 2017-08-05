@@ -7,22 +7,54 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.SearchView;
 
 import com.zwl.baseframe.BaseApplication;
 import com.zwl.baseframe.R;
+import com.zwl.baseframe.domain.business.model.WordModel;
 import com.zwl.baseframe.domain.ui.base.BaseActivity;
 
+import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, MainContract.IMainView {
+
+    private static final String TAG = MainActivity.class.getSimpleName();
+
+    @BindView(R.id.sv_word)
+    SearchView searchView;
+
+    @BindView(R.id.rv_words)
+    RecyclerView rvWords;
+
+    @Inject
+    MainContract.IMainPresenter iMainPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+
+        iMainPresenter.setView(this);
+
+        try {
+            initView();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void initView() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -43,6 +75,25 @@ public class MainActivity extends BaseActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+      initSearchView();
+    }
+
+    private void initSearchView() {
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Log.v(TAG, query);
+                iMainPresenter.searchWord(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
     }
 
     @Override
@@ -105,5 +156,10 @@ public class MainActivity extends BaseActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void showSearchResult(WordModel wordModel) {
+        showToast(wordModel.toString());
     }
 }

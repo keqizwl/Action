@@ -4,10 +4,12 @@ package com.zwl.baseframe.domain.business.implementz.baidu;
 import com.zwl.baseframe.domain.business.model.WordModel;
 import com.zwl.baseframe.domain.business.module.Constants;
 import com.zwl.baseframe.domain.business.module.word.IWordModule;
-import com.zwl.baseframe.implementz.CommonCallback;
 import com.zwl.baseframe.implementz.di.scope.AppScope;
 
 import javax.inject.Inject;
+
+import io.reactivex.Flowable;
+import io.reactivex.functions.Function;
 
 /**
  * Created by hasee on 2017/6/27.
@@ -22,9 +24,15 @@ public class BaiDuTranslater implements IWordModule {
     }
 
     @Override
-    public void searchWord(String wordName, CommonCallback<WordModel> commonCallback) {
-        TransApi api = new TransApi(Constants.BAIDU_TRANSLATE_APP_ID, Constants.BAIDU_TRANSLATE_SECURITY_KEY);
+    public Function<String, Flowable<WordModel>> searchWord() {
+        return  new Function<String, Flowable<WordModel>>() {
+            @Override
+            public Flowable<WordModel> apply(String wordName) throws Exception {
+                TransApi api = new TransApi(Constants.BAIDU_TRANSLATE_APP_ID, Constants.BAIDU_TRANSLATE_SECURITY_KEY);
 
-        api.getTransResult(wordName, "auto", "en");
+                String result = api.getTransResult(wordName, "auto", "zh");
+                return Flowable.just(new WordModel(0,wordName,result,System.currentTimeMillis()));
+            }
+        };
     }
 }

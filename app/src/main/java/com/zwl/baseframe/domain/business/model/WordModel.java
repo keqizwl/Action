@@ -12,10 +12,9 @@ public class WordModel {
     private long saveTime;
 
 
-    public WordModel(long id, String name, String pronunciation, String meaning, long saveTime) {
+    public WordModel(long id, String name, String meaning, long saveTime) {
         this.id = id;
         this.name = name;
-        this.pronunciation = pronunciation;
         this.meaning = meaning;
         this.saveTime = saveTime;
     }
@@ -42,5 +41,16 @@ public class WordModel {
 
     public long getSaveTime() {
         return saveTime;
+    }
+
+    @Override
+    public String toString() {
+        return "WordModel{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", pronunciation='" + pronunciation + '\'' +
+                ", meaning='" + meaning + '\'' +
+                ", saveTime=" + saveTime +
+                '}';
     }
 }

@@ -2,6 +2,10 @@ package com.zwl.baseframe.domain.ui.implementz.di.module;
 
 import android.app.Activity;
 
+import com.zwl.baseframe.domain.business.implementz.WordBusinessImpl;
+import com.zwl.baseframe.domain.business.interfacez.IWordBusiness;
+import com.zwl.baseframe.domain.ui.main.MainContract;
+import com.zwl.baseframe.domain.ui.main.MainPresenter;
 import com.zwl.baseframe.domain.ui.sample.SampleContract;
 import com.zwl.baseframe.domain.ui.sample.SamplePresenter;
 
@@ -28,5 +32,15 @@ public class ActivityModule {
     @Provides
     public SampleContract.ILoginPresenter provideLoginPresent(SamplePresenter samplePresenter) {
         return samplePresenter;
+    }
+
+    @Provides
+    public MainContract.IMainPresenter provideMainPresenter(MainPresenter mainPresenter) {
+        return mainPresenter;
+    }
+
+    @Provides
+    public IWordBusiness provideWordBusiness(WordBusinessImpl wordBusiness) {
+        return wordBusiness;
     }
 }

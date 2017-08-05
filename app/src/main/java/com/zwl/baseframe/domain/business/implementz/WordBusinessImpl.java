@@ -17,6 +17,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Flowable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 /**
  * Created by hasee on 2017/6/26.
  */
@@ -71,19 +75,17 @@ public class WordBusinessImpl implements IWordBusiness {
 
     @Override
     public void searchWord(final String wordName, final CommonCallback<WordModel> commonCallback) {
-        wordModule.searchWord(wordName, new CommonCallback<WordModel>() {
-            @Override
-            public void onSuccess(WordModel wordModel) {
-                wordStorer.saveWord(wordModel);
-                updateViewCache(wordModel);
-                commonCallback.onSuccess(wordModel);
-            }
-
-            @Override
-            public void onError(int code, String message) {
-                commonCallback.onError(code, message);
-            }
-        });
+        Flowable.just(wordName)
+                .subscribeOn(Schedulers.io())
+                .flatMap(wordModule.searchWord())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe((result) -> {
+                    wordStorer.saveWord(result);
+                    updateViewCache(result);
+                    commonCallback.onSuccess(result);
+                }, (e) -> {
+                    commonCallback.onError(0, e.getMessage());
+                });
     }
 
     private void updateViewCache(WordModel wordModel) {

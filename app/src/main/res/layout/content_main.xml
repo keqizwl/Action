@@ -3,33 +3,87 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.zwl.baseframe.domain.ui.main.MainActivity"
     tools:showIn="@layout/app_bar_main"
     tools:layout_editor_absoluteY="0dp"
+    android:background="@color/common_window_bg"
     tools:layout_editor_absoluteX="0dp">
 
-    <FrameLayout
-        android:layout_width="368dp"
-        android:layout_height="624dp"
+    <SearchView
+        android:id="@+id/sv_word"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
         android:orientation="horizontal"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
+        android:background="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/tv_tips"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="0dp" />
+    <TextView
+        android:id="@+id/tv_tips"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/white"
+        android:padding="@dimen/margin_middle"
+        android:text="@string/main_tips"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/text_size_middle"
+        app:layout_constraintBottom_toTopOf="@+id/rv_words"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sv_word" />
 
-        <EditText
-            android:id="@+id/et_search_word"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="搜索"
-            android:layout_margin="@dimen/margin_large"
-            android:drawableLeft="@mipmap/ic_launcher"
-            android:inputType="textPersonName"
-            android:text="Name"
-            android:background="@drawable/leak_canary_icon"
-            android:gravity="center_vertical"
-            android:textColor="@android:color/black" />
-    </FrameLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_words"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_tips"
+        app:layout_constraintVertical_bias="0.625" />
+    <LinearLayout
+        android:id="@+id/ll_word_detail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tv_word_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_huge"
+            tools:text="hello"
+            android:layout_marginLeft="@dimen/margin_large"
+            android:layout_marginTop="@dimen/margin_large"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tv_word_meaning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_huge"
+            android:layout_marginLeft="@dimen/margin_large"
+            android:layout_marginTop="@dimen/margin_large"
+            tools:text="你好"/>
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
