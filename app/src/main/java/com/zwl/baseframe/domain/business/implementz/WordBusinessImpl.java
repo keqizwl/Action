@@ -1,6 +1,8 @@
 package com.zwl.baseframe.domain.business.implementz;
 
 
+import android.util.Log;
+
 import com.zwl.baseframe.domain.business.interfacez.IWordBusiness;
 import com.zwl.baseframe.domain.business.model.AlarmModel;
 import com.zwl.baseframe.domain.business.model.WordModel;
@@ -27,6 +29,7 @@ import io.reactivex.schedulers.Schedulers;
 
 @AppScope
 public class WordBusinessImpl implements IWordBusiness {
+    private static final String TAG = WordBusinessImpl.class.getSimpleName();
     @Inject
     IWordModule wordModule;
     @Inject
@@ -50,18 +53,20 @@ public class WordBusinessImpl implements IWordBusiness {
 
     @Override
     public void getRecentlyWordList(final CommonCallback<List<WordModel>> commonCallback) {
+        Log.d(TAG, "getRecentlyWordList 1");
         if (commonCallback == null) {
             return;
         }
-
+        Log.d(TAG, "getRecentlyWordList 2");
         if (homeWordModels.size() != 0) {
             commonCallback.onSuccess(homeWordModels);
             return;
         }
-
+        Log.d(TAG, "getRecentlyWordList 3");
         wordStorer.getWordList(new CommonCallback<List<WordModel>>() {
             @Override
             public void onSuccess(List<WordModel> wordModels) {
+                Log.d(TAG, "getRecentlyWordList 4");
                 homeWordModels.addAll(wordModels);
                 commonCallback.onSuccess(homeWordModels);
             }

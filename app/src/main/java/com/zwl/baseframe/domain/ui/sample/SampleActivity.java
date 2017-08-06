@@ -31,6 +31,7 @@ public class SampleActivity extends BaseActivity implements SampleContract.ILogi
         initView();
 
         mILoginPresenter.setView(this);
+
         mILoginPresenter.start();
     }
 

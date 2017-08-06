@@ -1,10 +1,14 @@
 package com.zwl.baseframe.domain.ui.main;
 
 
+import android.util.Log;
+
 import com.zwl.baseframe.domain.business.interfacez.IWordBusiness;
 import com.zwl.baseframe.domain.business.model.WordModel;
 import com.zwl.baseframe.domain.ui.implementz.di.scope.ActivityScope;
 import com.zwl.baseframe.implementz.CommonCallback;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -14,7 +18,8 @@ import javax.inject.Inject;
  */
 
 @ActivityScope
-public class MainPresenter implements MainContract.IMainPresenter {
+public class MainPresenter implements MainContract.IMainPresenter, IWordBusiness.HomeWordListChangedListener {
+    private static final String TAG = MainPresenter.class.getSimpleName();
     private MainContract.IMainView iMainView;
 
     @Inject
@@ -22,12 +27,23 @@ public class MainPresenter implements MainContract.IMainPresenter {
 
     @Inject
     public MainPresenter() {
-
+        iWordBusiness.setHomeWordListChangedListener(this);
     }
 
     @Override
     public void start() {
-        iMainView.showToast("hello world");
+        Log.d(TAG, "start");
+        iWordBusiness.getRecentlyWordList(new CommonCallback<List<WordModel>>() {
+            @Override
+            public void onSuccess(List<WordModel> wordModels) {
+                iMainView.showSavedWords(wordModels);
+            }
+
+            @Override
+            public void onError(int code, String message) {
+                iMainView.showToast("failed code = " + code + " " + message);
+            }
+        });
     }
 
     @Override
@@ -48,5 +64,10 @@ public class MainPresenter implements MainContract.IMainPresenter {
                 iMainView.showToast(message);
             }
         });
+    }
+
+    @Override
+    public void onWordListChanged() {
+        iMainView.notifyWordListChange();
     }
 }

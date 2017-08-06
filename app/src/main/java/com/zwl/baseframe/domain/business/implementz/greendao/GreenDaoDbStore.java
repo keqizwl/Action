@@ -1,6 +1,8 @@
 package com.zwl.baseframe.domain.business.implementz.greendao;
 
 
+import android.util.Log;
+
 import com.zwl.baseframe.domain.business.model.AlarmModel;
 import com.zwl.baseframe.domain.business.model.WordModel;
 import com.zwl.baseframe.domain.business.module.alarm.IAlarmStorer;
@@ -23,6 +25,7 @@ import javax.inject.Inject;
 
 @AppScope
 public class GreenDaoDbStore implements IWordStore, IAlarmStorer {
+    private static final String TAG = GreenDaoDbStore.class.getSimpleName();
     @Inject
     WordDao wordDao;
 
@@ -39,14 +42,15 @@ public class GreenDaoDbStore implements IWordStore, IAlarmStorer {
             return;
         }
 
-        List<Word> words = wordDao.queryBuilder().build().list();
+        long latestTime = System.currentTimeMillis() - 5 * 24 * 60 * 60 * 1000;
+        List<Word> words = wordDao.queryBuilder().where(WordDao.Properties.SaveTime.le(latestTime)).build().list();
         List<WordModel> wordModels = new ArrayList<>();
         if (words != null) {
             for (Word word : words) {
                 wordModels.add(DbConverter.convertToWordModel(word));
             }
         }
-
+        Log.d(TAG, "words size = " + wordModels.size());
         commonCallback.onSuccess(wordModels);
     }
 

@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -19,6 +20,8 @@ import com.zwl.baseframe.BaseApplication;
 import com.zwl.baseframe.R;
 import com.zwl.baseframe.domain.business.model.WordModel;
 import com.zwl.baseframe.domain.ui.base.BaseActivity;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -35,6 +38,8 @@ public class MainActivity extends BaseActivity
 
     @BindView(R.id.rv_words)
     RecyclerView rvWords;
+
+    WordListAdapter wordListAdapter;
 
     @Inject
     MainContract.IMainPresenter iMainPresenter;
@@ -76,7 +81,13 @@ public class MainActivity extends BaseActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-      initSearchView();
+        initSearchView();
+        initRv();
+    }
+
+    private void initRv() {
+        wordListAdapter = new WordListAdapter(this, R.layout.item_word);
+        rvWords.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
     }
 
     private void initSearchView() {
@@ -161,5 +172,26 @@ public class MainActivity extends BaseActivity
     @Override
     public void showSearchResult(WordModel wordModel) {
         showToast(wordModel.toString());
+    }
+
+    @Override
+    public void showSavedWords(List<WordModel> wordModels) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                wordListAdapter.clear();
+                wordListAdapter.addAll(wordModels);
+            }
+        });
+    }
+
+    @Override
+    public void notifyWordListChange() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                wordListAdapter.notifyDataSetChanged();
+            }
+        });
     }
 }
