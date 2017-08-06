@@ -1,1 +1,2 @@
-include ':app',':greendaoorm'
+include ':app', ':greendaoorm', ':library'
+project(':library').projectDir = new File('baselib/library')
