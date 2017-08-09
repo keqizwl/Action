@@ -12,25 +12,25 @@ public class WordDaoGentator {
 
         //下载
         addWordTable(schema);
-        addAlarm(schema);
+        addAlarmTable(schema);
         new DaoGenerator().generateAll(schema, "..\\app\\src\\main\\java-gen");
     }
 
     private static void addWordTable(Schema schema) {
-        Entity note = schema.addEntity("Word");
-        note.addIdProperty().primaryKey().autoincrement();
-        note.addStringProperty("name");
-        note.addStringProperty("pronunciation");
-        note.addStringProperty("meaning");
-        note.addLongProperty("saveTime");
+        Entity word = schema.addEntity("Word");
+        word.addIdProperty().autoincrement();
+        word.addStringProperty("name");
+        word.addStringProperty("pronunciation");
+        word.addStringProperty("meaning");
+        word.addLongProperty("saveTime");
     }
 
-    private static void addAlarm(Schema schema) {
-        Entity note = schema.addEntity("Alarm");
-        note.addLongProperty("id").primaryKey();
-        note.addIntProperty("hour");
-        note.addIntProperty("minute");
-        note.addBooleanProperty("open");
+    private static void addAlarmTable(Schema schema) {
+        Entity alarm = schema.addEntity("Alarm");
+        alarm.addIdProperty().autoincrement();
+        alarm.addIntProperty("hour");
+        alarm.addIntProperty("minute");
+        alarm.addBooleanProperty("open");
     }
 
 }

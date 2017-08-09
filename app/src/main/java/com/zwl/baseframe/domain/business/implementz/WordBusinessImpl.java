@@ -1,11 +1,10 @@
 package com.zwl.baseframe.domain.business.implementz;
 
 
-import android.util.Log;
-
 import com.zwl.baseframe.domain.business.interfacez.IWordBusiness;
 import com.zwl.baseframe.domain.business.model.AlarmModel;
 import com.zwl.baseframe.domain.business.model.WordModel;
+import com.zwl.baseframe.domain.business.module.alarm.AlarmSettingParams;
 import com.zwl.baseframe.domain.business.module.alarm.IAlarmModule;
 import com.zwl.baseframe.domain.business.module.alarm.IAlarmStorer;
 import com.zwl.baseframe.domain.business.module.word.IWordModule;
@@ -40,7 +39,7 @@ public class WordBusinessImpl implements IWordBusiness {
     IAlarmStorer alarmStorer;
 
     @Inject
-    public WordBusinessImpl(){
+    public WordBusinessImpl() {
 
     }
 
@@ -53,29 +52,23 @@ public class WordBusinessImpl implements IWordBusiness {
 
     @Override
     public void getRecentlyWordList(final CommonCallback<List<WordModel>> commonCallback) {
-        Log.d(TAG, "getRecentlyWordList 1");
         if (commonCallback == null) {
             return;
         }
-        Log.d(TAG, "getRecentlyWordList 2");
         if (homeWordModels.size() != 0) {
             commonCallback.onSuccess(homeWordModels);
             return;
         }
-        Log.d(TAG, "getRecentlyWordList 3");
-        wordStorer.getWordList(new CommonCallback<List<WordModel>>() {
-            @Override
-            public void onSuccess(List<WordModel> wordModels) {
-                Log.d(TAG, "getRecentlyWordList 4");
-                homeWordModels.addAll(wordModels);
-                commonCallback.onSuccess(homeWordModels);
-            }
-
-            @Override
-            public void onError(int code, String message) {
-                commonCallback.onError(code, message);
-            }
-        });
+        Flowable.just(new Object())
+                .subscribeOn(Schedulers.io())
+                .flatMap(wordStorer.getWordList())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe((result) -> {
+                    homeWordModels.addAll(result);
+                    commonCallback.onSuccess(homeWordModels);
+                }, (e) -> {
+                    commonCallback.onError(0, e.getMessage());
+                });
     }
 
     @Override
@@ -95,48 +88,50 @@ public class WordBusinessImpl implements IWordBusiness {
 
     private void updateViewCache(WordModel wordModel) {
         //home 数据更新
-        homeWordModels.add(wordModel);
+        homeWordModels.add(0, wordModel);
         if (homeWordListChangedListener != null) {
             homeWordListChangedListener.onWordListChanged();
         }
     }
 
     @Override
-    public void getAlarmList(final CommonCallback<List<AlarmModel>> alarmModelCommonCallback) {
-        if (setAlarmModels.size() != 0) {
-            alarmModelCommonCallback.onSuccess(setAlarmModels);
+    public void getAlarmList(final CommonCallback<List<AlarmModel>> commonCallback) {
+        if (commonCallback == null) {
             return;
         }
-
-        alarmStorer.getAlarmList(new CommonCallback<List<AlarmModel>>() {
-            @Override
-            public void onSuccess(List<AlarmModel> alarmModels) {
-                setAlarmModels.addAll(alarmModels);
-                alarmModelCommonCallback.onSuccess(setAlarmModels);
-            }
-
-            @Override
-            public void onError(int code, String message) {
-                alarmModelCommonCallback.onError(code, message);
-            }
-        });
+        if (setAlarmModels.size() != 0) {
+            commonCallback.onSuccess(setAlarmModels);
+            return;
+        }
+        Flowable.just(new Object())
+                .subscribeOn(Schedulers.io())
+                .flatMap(alarmStorer.getAlarmList())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe((result) -> {
+                    setAlarmModels.addAll(result);
+                    commonCallback.onSuccess(setAlarmModels);
+                }, (e) -> {
+                    commonCallback.onError(0, e.getMessage());
+                });
     }
 
     @Override
-    public void setAlarm(final AlarmModel alarmModel, final boolean open, final CommonCallback<Void> commonCallback) {
-        alarmModule.setAlarm(alarmModel, open, new CommonCallback<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                alarmModel.setOpen(open);
-                alarmStorer.saveAlarm(alarmModel);
-                commonCallback.onSuccess(null);
-            }
+    public void setAlarm(final AlarmModel alarmModel, int hour, int minute, final boolean open, final CommonCallback<Void> commonCallback) {
+        if (commonCallback == null) {
+            return;
+        }
 
-            @Override
-            public void onError(int code, String message) {
-                commonCallback.onError(code, message);
-            }
-        });
+        Flowable.just(new AlarmSettingParams(alarmModel, hour, minute, open))
+                .subscribeOn(Schedulers.io())
+                .flatMap(alarmModule.setAlarm())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe((result) -> {
+                    alarmModel.setOpen(open);
+                    alarmStorer.saveAlarm(alarmModel);
+                    commonCallback.onSuccess(null);
+                }, (e) -> {
+                    commonCallback.onError(0, e.getMessage());
+                });
     }
 
     @Override

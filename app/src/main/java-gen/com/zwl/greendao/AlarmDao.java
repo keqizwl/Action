@@ -22,7 +22,7 @@ public class AlarmDao extends AbstractDao<Alarm, Long> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property Id = new Property(0, Long.class, "id", true, "ID");
+        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property Hour = new Property(1, Integer.class, "hour", false, "HOUR");
         public final static Property Minute = new Property(2, Integer.class, "minute", false, "MINUTE");
         public final static Property Open = new Property(3, Boolean.class, "open", false, "OPEN");
@@ -41,7 +41,7 @@ public class AlarmDao extends AbstractDao<Alarm, Long> {
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"ALARM\" (" + //
-                "\"ID\" INTEGER PRIMARY KEY ," + // 0: id
+                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"HOUR\" INTEGER," + // 1: hour
                 "\"MINUTE\" INTEGER," + // 2: minute
                 "\"OPEN\" INTEGER);"); // 3: open

@@ -18,7 +18,7 @@ public interface IWordBusiness {
 
     void getAlarmList(CommonCallback<List<AlarmModel>> alarmModelCommonCallback);
 
-    void setAlarm(AlarmModel alarmModel, boolean open, CommonCallback<Void> commonCallback);
+    void setAlarm(AlarmModel alarmModel, int hour, int minute, boolean open, CommonCallback<Void> commonCallback);
 
     void setHomeWordListChangedListener(HomeWordListChangedListener homeWordListChangedListener);
 

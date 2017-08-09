@@ -8,6 +8,8 @@ import com.zwl.baseframe.domain.ui.main.MainContract;
 import com.zwl.baseframe.domain.ui.main.MainPresenter;
 import com.zwl.baseframe.domain.ui.sample.SampleContract;
 import com.zwl.baseframe.domain.ui.sample.SamplePresenter;
+import com.zwl.baseframe.domain.ui.settting.SettingContract;
+import com.zwl.baseframe.domain.ui.settting.SettingPresenter;
 
 import dagger.Module;
 import dagger.Provides;
@@ -30,6 +32,11 @@ public class ActivityModule {
     }
 
     @Provides
+    public IWordBusiness provideWordBusiness(WordBusinessImpl wordBusiness) {
+        return wordBusiness;
+    }
+
+    @Provides
     public SampleContract.ILoginPresenter provideLoginPresent(SamplePresenter samplePresenter) {
         return samplePresenter;
     }
@@ -40,7 +47,7 @@ public class ActivityModule {
     }
 
     @Provides
-    public IWordBusiness provideWordBusiness(WordBusinessImpl wordBusiness) {
-        return wordBusiness;
+    public SettingContract.ISettingPresenter provideSettingPresenter(SettingPresenter settingPresenter) {
+        return settingPresenter;
     }
 }

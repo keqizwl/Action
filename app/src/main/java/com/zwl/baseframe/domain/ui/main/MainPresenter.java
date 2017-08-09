@@ -27,7 +27,7 @@ public class MainPresenter implements MainContract.IMainPresenter, IWordBusiness
 
     @Inject
     public MainPresenter() {
-        iWordBusiness.setHomeWordListChangedListener(this);
+
     }
 
     @Override
@@ -53,6 +53,8 @@ public class MainPresenter implements MainContract.IMainPresenter, IWordBusiness
 
     @Override
     public void searchWord(String query) {
+        iWordBusiness.setHomeWordListChangedListener(this);
+
         iWordBusiness.searchWord(query, new CommonCallback<WordModel>() {
             @Override
             public void onSuccess(WordModel wordModel) {

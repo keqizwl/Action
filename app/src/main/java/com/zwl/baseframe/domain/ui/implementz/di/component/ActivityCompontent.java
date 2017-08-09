@@ -6,6 +6,7 @@ import com.zwl.baseframe.domain.ui.implementz.di.module.ActivityModule;
 import com.zwl.baseframe.domain.ui.implementz.di.scope.ActivityScope;
 import com.zwl.baseframe.domain.ui.main.MainActivity;
 import com.zwl.baseframe.domain.ui.sample.SampleActivity;
+import com.zwl.baseframe.domain.ui.settting.SettingActivity;
 
 import dagger.Subcomponent;
 
@@ -16,9 +17,11 @@ import dagger.Subcomponent;
 @ActivityScope
 @Subcomponent(modules = {ActivityModule.class})
 public interface ActivityCompontent {
+    Activity context();
+
     void inject(SampleActivity sampleActivity);
 
     void inject(MainActivity mainActivity);
 
-    Activity context();
+    void inject(SettingActivity settingActivity);
 }

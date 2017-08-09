@@ -36,7 +36,11 @@ public class BaiDuTranslater implements IWordModule {
                 String result = api.getTransResult(wordName, "auto", "zh");
                 LinkedTreeMap<String, Object> transResult = JsonUtils.fromJson(result);
                 ArrayList<LinkedTreeMap<String, String>> trans = (ArrayList<LinkedTreeMap<String, String>>) transResult.get("trans_result");
-                return Flowable.just(new WordModel(0, wordName, trans.get(0).get("dst"), System.currentTimeMillis()));
+                if (wordName.equals(trans.get(0).get("dst"))) {
+                    throw new Exception("没有查到该单词！");
+                } else {
+                    return Flowable.just(new WordModel(0, wordName, trans.get(0).get("dst"), System.currentTimeMillis()));
+                }
             }
         };
     }

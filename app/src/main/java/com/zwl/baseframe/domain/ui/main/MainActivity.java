@@ -57,6 +57,8 @@ public class MainActivity extends BaseActivity
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        iMainPresenter.start();
     }
 
     private void initView() {
@@ -86,12 +88,10 @@ public class MainActivity extends BaseActivity
     }
 
     private void initRv() {
-        wordListAdapter = new WordListAdapter(this, R.layout.item_word);
         rvWords.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
     }
 
     private void initSearchView() {
-        searchView.setSubmitButtonEnabled(true);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -171,16 +171,16 @@ public class MainActivity extends BaseActivity
 
     @Override
     public void showSearchResult(WordModel wordModel) {
-        showToast(wordModel.toString());
+        showToast(wordModel.getMeaning());
     }
 
     @Override
-    public void showSavedWords(List<WordModel> wordModels) {
+    public void showSavedWords(final List<WordModel> wordModels) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                wordListAdapter.clear();
-                wordListAdapter.addAll(wordModels);
+                wordListAdapter = new WordListAdapter(MainActivity.this, R.layout.item_word, wordModels);
+                rvWords.setAdapter(wordListAdapter);
             }
         });
     }
@@ -190,7 +190,9 @@ public class MainActivity extends BaseActivity
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                wordListAdapter.notifyDataSetChanged();
+                if (wordListAdapter != null) {
+                    wordListAdapter.notifyDataSetChanged();
+                }
             }
         });
     }

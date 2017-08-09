@@ -10,7 +10,7 @@ import org.greenrobot.greendao.annotation.*;
 @Entity
 public class Alarm {
 
-    @Id
+    @Id(autoincrement = true)
     private Long id;
     private Integer hour;
     private Integer minute;

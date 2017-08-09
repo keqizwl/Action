@@ -2,16 +2,18 @@ package com.zwl.baseframe.domain.business.module.word.storer;
 
 
 import com.zwl.baseframe.domain.business.model.WordModel;
-import com.zwl.baseframe.implementz.CommonCallback;
 
 import java.util.List;
+
+import io.reactivex.Flowable;
+import io.reactivex.functions.Function;
 
 /**
  * Created by hasee on 2017/6/26.
  */
 
 public interface IWordStore {
-    void getWordList(CommonCallback<List<WordModel>> commonCallback);
+    Function<Object, Flowable<List<WordModel>>> getWordList();
 
     void saveWord(WordModel wordModel);
 }

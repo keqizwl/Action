@@ -13,7 +13,9 @@ public final class DbConverter {
 
     public static Word convertWordModel(WordModel wordModel) {
         Word word = new Word();
-        word.setId(wordModel.getId());
+        if (wordModel.getId() != 0) {
+            word.setId(wordModel.getId());
+        }
         word.setName(wordModel.getName());
         word.setMeaning(wordModel.getMeaning());
         word.setPronunciation(wordModel.getPronunciation());
@@ -23,12 +25,14 @@ public final class DbConverter {
     }
 
     public static WordModel convertToWordModel(Word word) {
-        return new WordModel(word.getId(), word.getName(),word.getMeaning(), word.getSaveTime());
+        return new WordModel(word.getId(), word.getName(), word.getMeaning(), word.getSaveTime());
     }
 
     public static Alarm convertAlarmModel(AlarmModel alarmModel) {
         Alarm alarm = new Alarm();
-        alarm.setId(alarmModel.getId());
+        if (alarm.getId() != 0) {
+            alarm.setId(alarmModel.getId());
+        }
         alarm.setHour(alarmModel.getHour());
         alarm.setMinute(alarmModel.getMinute());
         alarm.setOpen(alarmModel.isOpen());
