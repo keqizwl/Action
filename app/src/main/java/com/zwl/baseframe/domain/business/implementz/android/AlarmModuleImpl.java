@@ -10,11 +10,11 @@ import com.zwl.baseframe.domain.business.module.alarm.AlarmSettingParams;
 import com.zwl.baseframe.domain.business.module.alarm.IAlarmModule;
 
 import java.util.Calendar;
-import java.util.function.Function;
 
 import javax.inject.Inject;
 
 import io.reactivex.Flowable;
+import io.reactivex.functions.Function;
 
 import static android.content.Context.ALARM_SERVICE;
 
