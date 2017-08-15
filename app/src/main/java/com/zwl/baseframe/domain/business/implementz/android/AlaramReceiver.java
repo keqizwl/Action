@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import com.zwl.base_lib.ToastUtils;
 import com.zwl.baseframe.domain.ui.main.MainActivity;
 
 /**
@@ -13,6 +14,7 @@ import com.zwl.baseframe.domain.ui.main.MainActivity;
 public class AlaramReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
+        ToastUtils.show(context, "闹钟来啦啦");
         context.startActivity(new Intent(context, MainActivity.class));
     }
 }

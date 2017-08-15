@@ -30,7 +30,7 @@ public final class DbConverter {
 
     public static Alarm convertAlarmModel(AlarmModel alarmModel) {
         Alarm alarm = new Alarm();
-        if (alarm.getId() != 0) {
+        if (alarmModel.getId() != 0) {
             alarm.setId(alarmModel.getId());
         }
         alarm.setHour(alarmModel.getHour());

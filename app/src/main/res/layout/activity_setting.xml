@@ -8,5 +8,58 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:paddingTop="@dimen/toolbar_padding_top" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_large"
+            android:text="@string/action_alarm_time"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_middle" />
+
+        <include layout="@layout/layout_common_horizon_divider"></include>
+
+        <FrameLayout
+            android:id="@+id/fl_alarm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClick"
+            android:padding="@dimen/margin_large">
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center_vertical"
+                android:text="8:00"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_large" />
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/cb_alarm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:checked="true" />
+        </FrameLayout>
+
+        <include layout="@layout/layout_common_horizon_divider"></include>
+
+        <TextView
+            android:id="@+id/tv_soft_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_large"
+            android:text="@string/soft_desc"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_middle" />
+
+        <include layout="@layout/layout_common_horizon_divider"></include>
     </LinearLayout>
 </layout>

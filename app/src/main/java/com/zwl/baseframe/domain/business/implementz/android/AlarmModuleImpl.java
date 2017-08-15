@@ -63,6 +63,5 @@ public class AlarmModuleImpl implements IAlarmModule {
                 return Flowable.just(alarmModel);
             }
         };
-
     }
 }

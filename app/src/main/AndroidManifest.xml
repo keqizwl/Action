@@ -15,8 +15,12 @@
         </activity>
         <activity
             android:name=".domain.ui.settting.SettingActivity"
-            android:label="@string/action_settings">
+            android:label="@string/action_settings"
+            android:theme="@style/AppTheme.NoActionBar"
+            >
         </activity>
+        <receiver android:name=".domain.business.implementz.android.AlaramReceiver"
+            android:enabled="true"></receiver>
         <activity
             android:name=".domain.ui.main.MainActivity"
             android:label="@string/title_activity_main"

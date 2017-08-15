@@ -103,16 +103,45 @@ public class WordBusinessImpl implements IWordBusiness {
             commonCallback.onSuccess(setAlarmModels);
             return;
         }
+
         Flowable.just(new Object())
                 .subscribeOn(Schedulers.io())
                 .flatMap(alarmStorer.getAlarmList())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((result) -> {
-                    setAlarmModels.addAll(result);
-                    commonCallback.onSuccess(setAlarmModels);
+                    if (result != null && result.size() != 0) {
+                        setAlarmModels.addAll(result);
+                        commonCallback.onSuccess(setAlarmModels);
+                    } else {
+                        initAlarm(commonCallback);
+                    }
                 }, (e) -> {
                     commonCallback.onError(0, e.getMessage());
                 });
+    }
+
+    private void initAlarm(CommonCallback<List<AlarmModel>> commonCallback) {
+        AlarmModel alarmModel = new AlarmModel(0, 0, 0, true);
+        setAlarmModels.add(alarmModel);
+        setAlarm(alarmModel, 8, 0, true, new CommonCallback<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                commonCallback.onSuccess(setAlarmModels);
+            }
+
+            @Override
+            public void onError(int code, String message) {
+                commonCallback.onError(code, message);
+            }
+        });
+    }
+
+    @Override
+    public AlarmModel getCacheAlarmList() {
+        if (setAlarmModels.size() != 0) {
+            return setAlarmModels.get(0);
+        }
+        return null;
     }
 
     @Override

@@ -18,6 +18,8 @@ public interface IWordBusiness {
 
     void getAlarmList(CommonCallback<List<AlarmModel>> alarmModelCommonCallback);
 
+    AlarmModel getCacheAlarmList();
+
     void setAlarm(AlarmModel alarmModel, int hour, int minute, boolean open, CommonCallback<Void> commonCallback);
 
     void setHomeWordListChangedListener(HomeWordListChangedListener homeWordListChangedListener);

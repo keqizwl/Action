@@ -20,6 +20,7 @@ import com.zwl.baseframe.BaseApplication;
 import com.zwl.baseframe.R;
 import com.zwl.baseframe.domain.business.model.WordModel;
 import com.zwl.baseframe.domain.ui.base.BaseActivity;
+import com.zwl.baseframe.domain.ui.settting.SettingActivity;
 
 import java.util.List;
 
@@ -138,6 +139,7 @@ public class MainActivity extends BaseActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            SettingActivity.start(this);
             return true;
         }
 
