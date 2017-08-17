@@ -26,7 +26,7 @@ public class WordListAdapter extends BaseRecyclerViewAdapter<WordModel> {
     }
 
     private String getLeftTime(long saveTime) {
-        long dif = System.currentTimeMillis() + 5 * 24 * 60 * 60 * 1000 - saveTime;
+        long dif = - System.currentTimeMillis() + 5 * 24 * 60 * 60 * 1000 + saveTime;
         int day = (int) (dif / (24 * 60 * 60 * 1000));
         int hour = (int) ((dif % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
         return baseActivity.getString(R.string.word_main_left_time, day, hour);

@@ -1,11 +1,13 @@
 package com.zwl.baseframe.domain.ui.settting;
 
+import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.TimePicker;
@@ -29,6 +31,7 @@ public class SettingActivity extends BaseActivity implements SettingContract.ISe
 
     @Inject
     SettingContract.ISettingPresenter mISettingPresenter;
+    private AlertDialog mAdSoftDesc;
 
     public static void start(Context context) {
         Intent starter = new Intent(context, SettingActivity.class);
@@ -56,7 +59,7 @@ public class SettingActivity extends BaseActivity implements SettingContract.ISe
      * 初始化界面
      */
     private void initView() {
-        ToolbarHelper.setPrimaryToolbar(binding.toolbar, R.mipmap.ic_back, getString(R.string.action_settings), R.color.white, new View.OnClickListener() {
+        ToolbarHelper.setPrimaryToolbar((Toolbar) binding.getRoot().findViewById(R.id.toolbar), R.mipmap.ic_back, getString(R.string.action_settings), R.color.white, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -73,8 +76,19 @@ public class SettingActivity extends BaseActivity implements SettingContract.ISe
                 showCalenda(mISettingPresenter.getAlarmModel());
                 break;
             case R.id.tv_soft_desc:
+                showDescDialog();
                 break;
         }
+    }
+
+    private void showDescDialog() {
+        if (mAdSoftDesc == null) {
+            mAdSoftDesc = new AlertDialog.Builder(this)
+                    .setTitle(R.string.setting_soft_desc)
+                    .setMessage(R.string.setting_soft_desc_detail)
+                    .create();
+        }
+        mAdSoftDesc.show();
     }
 
     private void showCalenda(AlarmModel alarmModel) {

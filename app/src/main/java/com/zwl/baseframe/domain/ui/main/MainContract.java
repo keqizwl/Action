@@ -18,6 +18,8 @@ public class MainContract {
         void showSavedWords(List<WordModel> wordModels);
 
         void notifyWordListChange();
+
+        void clearSearch();
     }
 
     public interface IMainPresenter extends IBasePresenter<IMainView> {

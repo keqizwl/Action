@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">baseframe</string>
+    <string name="app_name">WordEasy</string>
     <string name="action_sign_in">登陆</string>
     <string name="login_email_promt">请填入邮箱</string>
     <string name="title_activity_main">MainActivity</string>
@@ -15,4 +15,12 @@
     <string name="title_select_time">请设置闹钟时间</string>
     <string name="action_confirm">确定</string>
     <string name="success">设置成功</string>
+    <string name="setting_soft_desc">软件说明</string>
+    <string name="setting_soft_desc_detail">日常生活或者工作中，会碰到一些单词，本着按需学习的原则，当你频繁遇到时，自然会需要去记忆，使用少的自然不用费心记</string>
+
+    <string name="word_notification_title_template">WordEasy</string>
+
+    <!-- TODO: remove this placeholder text -->
+    <string name="word_notification_placeholder_text_template">该看下单词了。
+    </string>
 </resources>

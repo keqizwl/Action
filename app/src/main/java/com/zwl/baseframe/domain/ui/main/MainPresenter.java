@@ -58,6 +58,7 @@ public class MainPresenter implements MainContract.IMainPresenter, IWordBusiness
         iWordBusiness.searchWord(query, new CommonCallback<WordModel>() {
             @Override
             public void onSuccess(WordModel wordModel) {
+                iMainView.clearSearch();
                 iMainView.showSearchResult(wordModel);
             }
 

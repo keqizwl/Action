@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zwl.baseframe">
 
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:name=".BaseApplication"
         android:allowBackup="true"
@@ -11,16 +13,16 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".domain.ui.sample.SampleActivity"
-            android:label="@string/app_name">
-        </activity>
+            android:label="@string/app_name"></activity>
         <activity
             android:name=".domain.ui.settting.SettingActivity"
             android:label="@string/action_settings"
-            android:theme="@style/AppTheme.NoActionBar"
-            >
-        </activity>
-        <receiver android:name=".domain.business.implementz.android.AlaramReceiver"
-            android:enabled="true"></receiver>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <receiver
+            android:name=".domain.business.implementz.android.AlaramReceiver"
+            android:enabled="true" />
+
         <activity
             android:name=".domain.ui.main.MainActivity"
             android:label="@string/title_activity_main"

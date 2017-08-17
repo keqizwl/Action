@@ -4,8 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.zwl.base_lib.ToastUtils;
-import com.zwl.baseframe.domain.ui.main.MainActivity;
+import com.zwl.baseframe.R;
+import com.zwl.baseframe.domain.ui.notification.WordNotification;
 
 /**
  * Created by hasee on 2017/8/9.
@@ -14,7 +14,6 @@ import com.zwl.baseframe.domain.ui.main.MainActivity;
 public class AlaramReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        ToastUtils.show(context, "闹钟来啦啦");
-        context.startActivity(new Intent(context, MainActivity.class));
+        WordNotification.notify(context, context.getString(R.string.word_notification_placeholder_text_template), 0);
     }
 }
