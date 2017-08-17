@@ -52,13 +52,19 @@ public class AlarmModuleImpl implements IAlarmModule {
                     calendar.set(Calendar.HOUR_OF_DAY, alarmSettingParams.getHour() != -1 ? alarmSettingParams.getHour() : alarmModel.getHour());
                     calendar.set(Calendar.MINUTE, alarmSettingParams.getMinute() != -1 ? alarmSettingParams.getMinute() : alarmModel.getMinute());
                     calendar.set(Calendar.SECOND, 0);
+                    if(calendar.getTimeInMillis() < System.currentTimeMillis()){
+                        calendar.setTimeInMillis(calendar.getTimeInMillis() + 24 * 60 * 60 * 1000);
+                    }
                     // Schedule the alarm!
-                    am.setRepeating(AlarmManager.RTC_WAKEUP,
+                    am.setInexactRepeating(AlarmManager.RTC_WAKEUP,
                             calendar.getTimeInMillis(), 24 * 60 * 60 * 1000, sender);
                 }
-
-                alarmModel.setHour(alarmSettingParams.getHour());
-                alarmModel.setMinute(alarmSettingParams.getMinute());
+                if (alarmSettingParams.getHour() != -1) {
+                    alarmModel.setHour(alarmSettingParams.getHour());
+                }
+                if (alarmSettingParams.getMinute() != -1) {
+                    alarmModel.setMinute(alarmSettingParams.getMinute());
+                }
                 alarmModel.setOpen(alarmSettingParams.isOpen());
                 return Flowable.just(alarmModel);
             }

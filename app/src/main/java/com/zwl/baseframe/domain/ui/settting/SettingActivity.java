@@ -106,6 +106,9 @@ public class SettingActivity extends BaseActivity implements SettingContract.ISe
     @Override
     public void showAlarm(AlarmModel alarmModel) {
         binding.tvTime.setText(String.format("%02d:%02d", alarmModel.getHour(), alarmModel.getMinute()));
+        binding.cbAlarm.setOnCheckedChangeListener(null);
+        binding.cbAlarm.setChecked(alarmModel.isOpen());
+        binding.cbAlarm.setOnCheckedChangeListener(this);
     }
 
     @Override
