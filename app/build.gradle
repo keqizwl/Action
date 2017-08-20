@@ -58,6 +58,7 @@ android {
 
 dependencies {
     implementation project(':library')
+    implementation project(':ocr')
 
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 

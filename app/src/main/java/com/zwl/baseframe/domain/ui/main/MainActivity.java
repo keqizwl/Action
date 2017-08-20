@@ -28,6 +28,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import edu.sfsu.cs.orange.ocr.CaptureActivity;
 
 public class MainActivity extends BaseActivity
         implements MainContract.IMainView {
@@ -128,6 +129,11 @@ public class MainActivity extends BaseActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             SettingActivity.start(this);
+            return true;
+        }
+
+        if (id == R.id.action_scan) {
+            CaptureActivity.start(this);
             return true;
         }
 
