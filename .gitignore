@@ -32,7 +32,6 @@ symbian/
 zxing.appspot.com/
 build/
 .idea/
-
 app/libs/
 app/src/main/java/com/zwl/baseframe/domain/ui/module/
 greendaoorm/libs/
